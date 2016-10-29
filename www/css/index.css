@@ -136,4 +136,7 @@ h1 {
     position:relative;
     top:1px;
 }
+#currentName {
+    font:100px;
+}
 

@@ -45,6 +45,8 @@ var app = {
 
         listeningElement.setAttribute('style', 'display:none;');
         receivedElement.setAttribute('style', 'display:block;');
+        document.getElementById("currentName").innerHTML = "Your name: " + name;
+        document.getElementById("currentName").style.fontSize = "15px";
 
         console.log('Received Event: ' + id);
         try {
@@ -62,6 +64,7 @@ var app = {
             var i = 0;
 		    recognition.onresult = function(event) {
 		        if (event.results.length > 0) {
+                    // alert(event.results[i][0].transcript);
 		            if (event.results[i][0].transcript.toUpperCase().indexOf(name.toUpperCase())!==-1) {
 		            	navigator.vibrate(500);
 		            	alert("Alert, your name has been mentioned!");
@@ -69,6 +72,7 @@ var app = {
 		            i++;
 		        }
 		        recognition.reset();
+                reset();
 		    }
         }
         catch (error) {
@@ -125,6 +129,7 @@ function speak() {
 function changeName() {
 	name = prompt("Enter name:", "");
 	storage.setItem("name", name);
+    document.getElementById("currentName").innerHTML = "Your name: " + name;
 	alert(storage.getItem("name"));
 }
 
