@@ -79,10 +79,10 @@ h1 {
 }
 
 .event {
-    border-radius:4px;
-    -webkit-border-radius:4px;
+    border-radius:8px;
+    -webkit-border-radius:8px;
     color:#FFFFFF;
-    font-size:12px;
+    font-size:17px;
     margin:0px 30px;
     padding:2px 0px;
 }
@@ -113,3 +113,27 @@ h1 {
     animation:fade 3000ms infinite;
     -webkit-animation:fade 3000ms infinite;
 }
+
+.myButton {
+    background-color:#44c767;
+    -moz-border-radius:8px;
+    -webkit-border-radius:8px;
+    border-radius:8px;
+    border:1px solid #18ab29;
+    display:inline-block;
+    cursor:pointer;
+    color:#ffffff;
+    font-family:Arial;
+    font-size:17px;
+    padding:5px 16px;
+    text-decoration:none;
+    text-shadow:0px 1px 0px #2f6627;
+}
+.myButton:hover {
+    background-color:#5cbf2a;
+}
+.myButton:active {
+    position:relative;
+    top:1px;
+}
+

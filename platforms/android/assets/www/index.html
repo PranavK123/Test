@@ -42,18 +42,20 @@
     <title>Called Me?</title>
 </head>
 
-<body bgcolor="blue">
+<body>
     <div class="app">
         <h1>Called Me?</h1>
-        <button id="changename" onclick="changeName()">Change Name</button>
+        <button id="changename" onclick="changeName()" class="myButton">Change Name</button>
         <div id="deviceready" class="blink">
             <p class="event listening">Connecting to Device</p>
             <p class="event received">Device is Ready</p>
         </div>
         <!-- <div onclick="sendVoice()">Mic1</div> -->
         <!-- <textarea id="textarea" rows=10 cols=40></textarea> -->
-        <button id="button1" onclick="toggleStartStop()">Start</button>
-        <button id="button2" onclick="speak()">Speak</button>
+        <button id="button1" onclick="toggleStartStop()" class="myButton"></button>
+        <!-- <button id="button2" onclick="speak()" class="myButton">Speak</button>
+        <button id="button3" onclick="sendVoice()" class="myButton">Test API</button>
+        <button id="button4" onclick="test()" class="myButton">Testing</button> -->
     </div>
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/index.js"></script>

@@ -58,18 +58,17 @@ var app = {
             reset();
             recognition = new SpeechRecognition();
             recognition.onend = reset();
-            recognition.continuous = true;
+            // recognition.continuous = true;
             var i = 0;
 		    recognition.onresult = function(event) {
 		        if (event.results.length > 0) {
-		        	alert(event.results[i][0].transcript);
-		            if (event.results[i][0].transcript.toUpperCase() === name.toUpperCase()) {
+		            if (event.results[i][0].transcript.toUpperCase().indexOf(name.toUpperCase())!==-1) {
 		            	navigator.vibrate(500);
-		            	alert("Matched");
+		            	alert("Alert, your name has been mentioned!");
 		            }
 		            i++;
 		        }
-		        recognition.start();
+		        recognition.reset();
 		    }
         }
         catch (error) {
@@ -77,7 +76,7 @@ var app = {
         }
     }
 };
-/*function sendVoice() {
+function sendVoice() {
     try {
         ApiAIPlugin.setListeningStartCallback(function () {
             // alert("listening started");
@@ -90,7 +89,7 @@ var app = {
            {}, // empty for simple requests, some optional parameters can be here 
            function (response) {
                // place your result processing here
-               alert(JSON.stringify(response));
+               alert(JSON.stringify(response.result.fulfillment.speech));
            },
            function (error) {
                // place your error processing here
@@ -99,7 +98,7 @@ var app = {
     } catch (e) {
         alert(e);
     }
-}*/
+}
 function reset() {
   recognizing = false;
   button1.innerHTML = "Click to Speak";
@@ -128,4 +127,17 @@ function changeName() {
 	storage.setItem("name", name);
 	alert(storage.getItem("name"));
 }
+
+var captureSuccess = function(mediaFiles) {
+    var i, path, len;
+    for (i = 0, len = mediaFiles.length; i < len; i += 1) {
+        path = mediaFiles[i].fullPath;
+        alert(path);
+    }
+};
+
+// capture error callback
+var captureError = function(error) {
+    navigator.notification.alert('Error code: ' + error);
+};
            

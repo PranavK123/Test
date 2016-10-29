@@ -16,6 +16,8 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+var storage = window.localStorage;
+var name = storage.getItem("name");
 var app = {
     // Application Constructor
     initialize: function() {
@@ -54,23 +56,20 @@ var app = {
             );
             var recognizing;
             reset();
-            // recognition.onend = reset();
             recognition = new SpeechRecognition();
-            // recognition.continuous = true;
+            recognition.onend = reset();
+            recognition.continuous = true;
             var i = 0;
 		    recognition.onresult = function(event) {
 		        if (event.results.length > 0) {
-		            alert(event.results[i][0].transcript);
-		            if (event.results[i][0].transcript.localeCompare(name) == 0)
-		            	try {
-		            	navigator.vibrate(500);}
-		            	catch (error) {
-		            		alert(error);
-		            	}
+		        	alert(event.results[i][0].transcript);
+		            if (event.results[i][0].transcript.toUpperCase() === name.toUpperCase()) {
+		            	navigator.vibrate(500);
 		            	alert("Matched");
+		            }
 		            i++;
 		        }
-		        reset();
+		        recognition.start();
 		    }
         }
         catch (error) {
@@ -91,7 +90,7 @@ function sendVoice() {
            {}, // empty for simple requests, some optional parameters can be here 
            function (response) {
                // place your result processing here
-               alert(JSON.stringify(response));
+               alert(JSON.stringify(response.result.fulfillment.speech));
            },
            function (error) {
                // place your error processing here
@@ -125,9 +124,28 @@ function speak() {
 }
 
 function changeName() {
-	var storage = window.localStorage;
-	var name = prompt("Enter name:", "");
+	name = prompt("Enter name:", "");
 	storage.setItem("name", name);
 	alert(storage.getItem("name"));
 }
+
+function test() {
+	navigator.device.capture.captureAudio(
+		captureSuccess, captureError, {limit:2}
+	);
+}
+
+var captureSuccess = function(mediaFiles) {
+    var i, path, len;
+    for (i = 0, len = mediaFiles.length; i < len; i += 1) {
+        path = mediaFiles[i].fullPath;
+        alert(path);
+        // do something interesting with the file
+    }
+};
+
+// capture error callback
+var captureError = function(error) {
+    navigator.notification.alert('Error code: ' + error);
+};
            
